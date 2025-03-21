@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎页 - 路上</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100vh;
+            background-color: #121212;
+            color: white;
+            overflow: hidden;
+        }
+        .welcome-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(18, 18, 18, 0.7), #121212);
+            z-index: -1;
+        }
+        .wave-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23121212" d="M0,192L48,202.7C96,213,192,235,288,229.3C384,224,480,192,576,181.3C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat;
+            background-size: cover;
+            z-index: 1;
+        }
+        .start-button {
+            background: linear-gradient(to right, #ff4081, #f8695e);
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.35);
+        }
+        .icon-circle {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-between">
+    <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="旅行背景" class="welcome-bg">
+    <div class="overlay"></div>
+    
+    <div class="container mx-auto px-6 pt-12 pb-32 relative z-10 flex-1 flex flex-col justify-between">
+        <div class="text-center mt-8">
+            <div class="inline-block rounded-full p-4 shadow-lg mb-4 bg-opacity-20 bg-white backdrop-filter backdrop-blur-md">
+                <i class="fas fa-map-marked-alt text-4xl text-pink-500"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-2">路上</h1>
+            <p class="text-xl opacity-90">每一段旅程都是一个故事</p>
+        </div>
+        
+        <div class="mb-10 text-center space-y-6">
+            <div class="flex justify-center items-center space-x-4 mb-10">
+                <div class="text-center">
+                    <div class="icon-circle rounded-full p-4 mb-2">
+                        <i class="fas fa-route text-3xl"></i>
+                    </div>
+                    <p class="text-sm">选择目的地</p>
+                </div>
+                <i class="fas fa-arrow-right opacity-60"></i>
+                <div class="text-center">
+                    <div class="icon-circle rounded-full p-4 mb-2">
+                        <i class="fas fa-motorcycle text-3xl"></i>
+                    </div>
+                    <p class="text-sm">选择交通工具</p>
+                </div>
+                <i class="fas fa-arrow-right opacity-60"></i>
+                <div class="text-center">
+                    <div class="icon-circle rounded-full p-4 mb-2">
+                        <i class="fas fa-book-open text-3xl"></i>
+                    </div>
+                    <p class="text-sm">探索旅途故事</p>
+                </div>
+            </div>
+            
+            <button class="start-button w-full">开始我的旅程</button>
+            
+            <p class="text-xs opacity-70 mt-4">登录/注册即表示您同意我们的<br>用户协议和隐私政策</p>
+        </div>
+    </div>
+    
+    <div class="wave-pattern"></div>
+</body>
+</html> 

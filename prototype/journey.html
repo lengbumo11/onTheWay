@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅途中 - 路上</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .map-container {
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            position: relative;
+        }
+        .journey-card {
+            border-radius: 24px 24px 0 0;
+            background-color: #1a1a1a;
+            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-item {
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 50px;
+            bottom: 0;
+            width: 2px;
+            background-color: #333;
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .point-marker {
+            background: linear-gradient(135deg, #ff4081, #f8695e);
+            box-shadow: 0 0 0 5px rgba(255, 64, 129, 0.2);
+        }
+        .bottom-nav {
+            border-top: 1px solid #333;
+            background-color: rgba(24, 24, 24, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            font-size: 10px;
+        }
+        .weather-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .weather-tag {
+            background-color: rgba(255, 64, 129, 0.2);
+            color: #ff4081;
+        }
+        .attraction-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+        .story-btn {
+            background: linear-gradient(to right, #ff4081, #f8695e);
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col h-full">
+        <!-- 顶部地图区域 -->
+        <div class="map-container" style="background-image: url('https://source.unsplash.com/1600x900/?zhangjiajie,mountains');">
+            <!-- 天气卡片 -->
+            <div class="weather-card absolute top-4 right-4 rounded-xl p-3 text-white">
+                <div class="flex items-center">
+                    <i class="fas fa-cloud-sun text-3xl mr-3 text-yellow-400"></i>
+                    <div>
+                        <div class="flex items-center">
+                            <span class="text-xl font-bold">24°</span>
+                            <span class="ml-1 text-gray-300">多云</span>
+                        </div>
+                        <div class="text-xs text-gray-300">张家界，湖南</div>
+                    </div>
+                </div>
+                <div class="mt-2 flex">
+                    <div class="weather-tag rounded-full text-xs px-2 py-0.5 mr-2">湿度 85%</div>
+                    <div class="weather-tag rounded-full text-xs px-2 py-0.5">风速 3m/s</div>
+                </div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="absolute top-4 left-4 bg-black bg-opacity-40 rounded-full w-10 h-10 flex items-center justify-center text-white">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <!-- 当前位置标记 -->
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                <div class="point-marker w-6 h-6 rounded-full flex items-center justify-center text-white mb-1">
+                    <i class="fas fa-map-marker-alt text-sm"></i>
+                </div>
+                <div class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-white text-xs">
+                    当前位置
+                </div>
+            </div>
+        </div>
+        
+        <!-- 旅程信息区域 -->
+        <div class="journey-card flex-1 overflow-hidden">
+            <div class="flex px-6 pt-6 items-center">
+                <div class="flex-1">
+                    <h1 class="text-xl font-bold">张家界之旅</h1>
+                    <p class="text-gray-400 text-sm">摩托车旅行 · 正在进行中</p>
+                </div>
+                <div class="flex items-center ml-4">
+                    <div class="flex flex-col items-end mr-3">
+                        <span class="font-bold text-2xl">127</span>
+                        <span class="text-gray-400 text-xs">公里</span>
+                    </div>
+                    <div class="h-10 w-px bg-gray-700 mr-3"></div>
+                    <div class="flex flex-col items-end">
+                        <span class="font-bold text-2xl">1:45</span>
+                        <span class="text-gray-400 text-xs">时长</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标签栏 -->
+            <div class="flex px-6 pt-4 pb-2 border-b border-gray-800">
+                <button class="py-2 px-1 mr-6 border-b-2 border-pink-500 text-pink-500 font-medium">旅程</button>
+                <button class="py-2 px-1 mr-6 text-gray-400">附近景点</button>
+                <button class="py-2 px-1 mr-6 text-gray-400">智能推荐</button>
+            </div>
+            
+            <!-- 滚动内容区域 -->
+            <div class="overflow-y-auto h-full pb-20 px-6 pt-4">
+                
+                <!-- 时间轴 -->
+                <div class="mb-6">
+                    <!-- 起点 -->
+                    <div class="timeline-item flex pb-6">
+                        <div class="mr-4 relative">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white z-10 relative">
+                                <i class="fas fa-flag text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 class="font-medium">出发点</h3>
+                            <p class="text-gray-400 text-sm">长沙市岳麓区 · 今天上午 8:30</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 途径点1 -->
+                    <div class="timeline-item flex pb-6">
+                        <div class="mr-4 relative">
+                            <div class="w-6 h-6 rounded-full bg-pink-500 flex items-center justify-center text-white z-10 relative">
+                                <i class="fas fa-map-pin text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 class="font-medium">常德市</h3>
+                            <p class="text-gray-400 text-sm mb-2">途径点 · 今天上午 10:15</p>
+                            <div class="bg-gray-900 rounded-xl p-3 flex items-center">
+                                <img src="https://source.unsplash.com/300x200/?constant,city" alt="常德市" class="w-16 h-16 rounded-lg object-cover mr-3">
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm">你在常德短暂停留，欣赏了城市风光</p>
+                                    <p class="text-gray-500 text-xs mt-1">停留时长: 25分钟</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 途径点2 - 当前位置 -->
+                    <div class="timeline-item flex pb-6">
+                        <div class="mr-4 relative">
+                            <div class="point-marker w-6 h-6 rounded-full flex items-center justify-center text-white z-10 relative">
+                                <i class="fas fa-map-marker-alt text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 class="font-medium">桑植县</h3>
+                            <p class="text-gray-400 text-sm mb-2">当前位置 · 今天下午 12:30</p>
+                            <div class="bg-gray-900 rounded-xl p-3 flex flex-col">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-walking text-green-400 text-lg mr-2"></i>
+                                    <span class="text-sm">周边有3个景点，距离你不到5公里</span>
+                                </div>
+                                
+                                <!-- 附近景点 -->
+                                <div class="attraction-card rounded-lg p-3 mb-2">
+                                    <div class="flex">
+                                        <img src="https://source.unsplash.com/300x200/?mountain,forest" alt="红石林景区" class="w-16 h-16 rounded-lg object-cover mr-3">
+                                        <div class="flex-1">
+                                            <h4 class="font-medium">红石林景区</h4>
+                                            <div class="flex items-center text-xs text-gray-400 mt-1">
+                                                <i class="fas fa-map-marker-alt mr-1 text-pink-500"></i>
+                                                <span>距离2.5公里</span>
+                                                <div class="mx-2 w-px h-3 bg-gray-600"></div>
+                                                <i class="fas fa-star text-yellow-500 mr-1"></i>
+                                                <span>4.7分（521评价）</span>
+                                            </div>
+                                            <p class="text-xs text-gray-400 mt-1 line-clamp-1">这里的红色砂岩景观令人叹为观止...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button class="story-btn text-white text-sm font-medium py-2 rounded-full mt-2">
+                                    生成旅行故事
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 目的地 -->
+                    <div class="timeline-item flex">
+                        <div class="mr-4 relative">
+                            <div class="w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-white z-10 relative">
+                                <i class="fas fa-map-marker-alt text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 class="font-medium text-gray-400">张家界国家森林公园</h3>
+                            <p class="text-gray-500 text-sm">预计到达 · 今天下午 15:30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 px-4">
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-search text-xl mb-1"></i>
+                <span>探索</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-pink-500">
+                <i class="fas fa-map-marked-alt text-xl mb-1"></i>
+                <span>行程</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-book-open text-xl mb-1"></i>
+                <span>故事</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-user text-xl mb-1"></i>
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

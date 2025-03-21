@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择交通工具 - 路上</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .header-card {
+            border-radius: 0 0 24px 24px;
+            background: linear-gradient(135deg, #ff4081, #f8695e);
+        }
+        .vehicle-card {
+            border-radius: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+        .vehicle-card.selected {
+            border: 1px solid #ff4081;
+            box-shadow: 0 4px 12px rgba(255, 64, 129, 0.2);
+        }
+        .vehicle-card:active {
+            transform: scale(0.98);
+        }
+        .next-button {
+            background: linear-gradient(to right, #ff4081, #f8695e);
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+        }
+        .bottom-nav {
+            border-top: 1px solid #333;
+            background-color: rgba(24, 24, 24, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            font-size: 10px;
+        }
+        .info-card {
+            background-color: #1a1a2e;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div class="flex flex-col h-full">
+        <!-- 顶部区域 -->
+        <div class="header-card text-white p-6 pb-8">
+            <div class="flex justify-between items-center mb-8">
+                <button class="bg-black bg-opacity-20 rounded-full w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="text-xl font-semibold">选择载具</h1>
+                <div class="w-10"></div> <!-- 空的占位符以保持标题居中 -->
+            </div>
+            
+            <div class="flex items-center bg-black bg-opacity-20 rounded-full p-2 px-4">
+                <div class="rounded-full bg-white w-8 h-8 flex items-center justify-center mr-3">
+                    <i class="fas fa-map-marker-alt text-pink-500"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm opacity-80">目的地</p>
+                    <p class="font-semibold">张家界 · 湖南省</p>
+                </div>
+                <i class="fas fa-chevron-right opacity-60"></i>
+            </div>
+        </div>
+        
+        <!-- 主要内容区 -->
+        <div class="flex-1 overflow-auto px-4 pt-6 pb-20">
+            <!-- 主要消息 -->
+            <div class="text-center mb-8">
+                <p class="text-lg font-semibold text-white">请选择你的载具</p>
+                <p class="text-sm text-gray-400">载具选择后暂时无法切换，请仔细选择</p>
+            </div>
+            
+            <!-- 交通工具选择 -->
+            <div class="grid grid-cols-1 gap-4 mb-8">
+                <!-- 自行车 -->
+                <div class="vehicle-card p-5 shadow-sm flex items-center">
+                    <div class="w-16 h-16 rounded-full bg-blue-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-bicycle text-3xl text-blue-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-white">自行车</h3>
+                        <p class="text-sm text-gray-400 mb-1">适合短途旅行和城市观光</p>
+                        <div class="flex items-center">
+                            <div class="bg-green-900 text-green-400 text-xs rounded-full px-2 py-0.5 flex items-center">
+                                <i class="fas fa-leaf text-xs mr-1"></i>
+                                <span>环保出行</span>
+                            </div>
+                            <div class="text-gray-500 text-xs ml-3">20KM/h</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-600 ml-2 flex-shrink-0"></div>
+                </div>
+                
+                <!-- 摩托车 -->
+                <div class="vehicle-card p-5 shadow-sm flex items-center selected">
+                    <div class="w-16 h-16 rounded-full bg-yellow-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-motorcycle text-3xl text-yellow-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-white">摩托车</h3>
+                        <p class="text-sm text-gray-400 mb-1">适合中途旅行和乡村观光</p>
+                        <div class="flex items-center">
+                            <div class="bg-blue-900 text-blue-400 text-xs rounded-full px-2 py-0.5 flex items-center">
+                                <i class="fas fa-bolt text-xs mr-1"></i>
+                                <span>灵活便捷</span>
+                            </div>
+                            <div class="text-gray-500 text-xs ml-3">50KM/h</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 border-pink-500 bg-pink-500 ml-2 flex-shrink-0 flex items-center justify-center">
+                        <i class="fas fa-check text-white text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- 汽车 -->
+                <div class="vehicle-card p-5 shadow-sm flex items-center">
+                    <div class="w-16 h-16 rounded-full bg-red-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-car text-3xl text-red-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-white">汽车</h3>
+                        <p class="text-sm text-gray-400 mb-1">适合长途旅行和多人出游</p>
+                        <div class="flex items-center">
+                            <div class="bg-purple-900 text-purple-400 text-xs rounded-full px-2 py-0.5 flex items-center">
+                                <i class="fas fa-couch text-xs mr-1"></i>
+                                <span>舒适便利</span>
+                            </div>
+                            <div class="text-gray-500 text-xs ml-3">80KM/h</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-600 ml-2 flex-shrink-0"></div>
+                </div>
+                
+                <!-- 火车/高铁 -->
+                <div class="vehicle-card p-5 shadow-sm flex items-center">
+                    <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-train text-3xl text-green-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-white">火车/高铁</h3>
+                        <p class="text-sm text-gray-400 mb-1">适合城际旅行和沿途观光</p>
+                        <div class="flex items-center">
+                            <div class="bg-yellow-900 text-yellow-400 text-xs rounded-full px-2 py-0.5 flex items-center">
+                                <i class="fas fa-bolt text-xs mr-1"></i>
+                                <span>高速出行</span>
+                            </div>
+                            <div class="text-gray-500 text-xs ml-3">300KM/h</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-600 ml-2 flex-shrink-0"></div>
+                </div>
+                
+                <!-- 飞机 -->
+                <div class="vehicle-card p-5 shadow-sm flex items-center">
+                    <div class="w-16 h-16 rounded-full bg-purple-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-plane text-3xl text-purple-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-white">飞机</h3>
+                        <p class="text-sm text-gray-400 mb-1">适合远程旅行和跨省出游</p>
+                        <div class="flex items-center">
+                            <div class="bg-red-900 text-red-400 text-xs rounded-full px-2 py-0.5 flex items-center">
+                                <i class="fas fa-tachometer-alt text-xs mr-1"></i>
+                                <span>超快速度</span>
+                            </div>
+                            <div class="text-gray-500 text-xs ml-3">800KM/h</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-600 ml-2 flex-shrink-0"></div>
+                </div>
+            </div>
+            
+            <!-- 提示区域 -->
+            <div class="info-card rounded-xl p-4 mb-6">
+                <div class="flex">
+                    <div class="text-blue-400 mr-3">
+                        <i class="fas fa-info-circle text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-blue-300 mb-1">提示</h4>
+                        <p class="text-sm text-blue-200 opacity-80">不同的交通工具会影响旅行的速度和体验。根据您的时间和偏好选择最适合的交通方式。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 按钮 -->
+            <button class="next-button w-full text-white font-medium py-4 mb-8">确认选择</button>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 px-4">
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-search text-xl mb-1"></i>
+                <span>探索</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-pink-500">
+                <i class="fas fa-map-marked-alt text-xl mb-1"></i>
+                <span>行程</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-book-open text-xl mb-1"></i>
+                <span>故事</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
+                <i class="fas fa-user text-xl mb-1"></i>
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

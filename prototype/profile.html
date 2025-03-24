@@ -13,6 +13,14 @@
             background-color: #121212;
             color: #e0e0e0;
         }
+        /* 隐藏滚动条但保持滚动功能 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
         .profile-header {
             position: relative;
             height: 220px;

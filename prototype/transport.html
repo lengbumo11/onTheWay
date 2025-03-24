@@ -12,6 +12,15 @@
             height: 100vh;
             background-color: #121212;
             color: #e0e0e0;
+            overflow: hidden;
+        }
+        /* 隐藏滚动条但保持滚动功能 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
         .header-card {
             border-radius: 0 0 24px 24px;
@@ -36,16 +45,28 @@
             box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
         }
         .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             border-top: 1px solid #333;
             background-color: rgba(24, 24, 24, 0.95);
             backdrop-filter: blur(10px);
+            padding: 8px 0;
+            z-index: 50;
+            width: 98%; /* 导航栏不全显示 */
         }
         .nav-item {
             font-size: 10px;
+            white-space: nowrap;
         }
         .info-card {
             background-color: #1a1a2e;
             border: 1px solid #333;
+        }
+        .scrollable-content {
+            overflow-y: auto;
+            padding-bottom: 70px; /* 为底部导航留出空间 */
         }
     </style>
 </head>
@@ -74,7 +95,7 @@
         </div>
         
         <!-- 主要内容区 -->
-        <div class="flex-1 overflow-auto px-4 pt-6 pb-20">
+        <div class="scrollable-content px-4 pt-6">
             <!-- 主要消息 -->
             <div class="text-center mb-8">
                 <p class="text-lg font-semibold text-white">请选择你的载具</p>
@@ -199,7 +220,7 @@
         </div>
         
         <!-- 底部导航栏 -->
-        <div class="bottom-nav fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 px-4">
+        <div class="bottom-nav flex justify-around items-center py-2 px-4">
             <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
                 <i class="fas fa-search text-xl mb-1"></i>
                 <span>探索</span>

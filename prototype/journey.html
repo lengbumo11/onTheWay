@@ -12,6 +12,15 @@
             height: 100vh;
             background-color: #121212;
             color: #e0e0e0;
+            overflow: hidden;
+        }
+        /* 隐藏滚动条但保持滚动功能 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
         .map-container {
             background-size: cover;
@@ -44,12 +53,20 @@
             box-shadow: 0 0 0 5px rgba(255, 64, 129, 0.2);
         }
         .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             border-top: 1px solid #333;
             background-color: rgba(24, 24, 24, 0.95);
             backdrop-filter: blur(10px);
+            padding: 8px 0;
+            z-index: 50;
+            width: 98%; /* 导航栏不全显示 */
         }
         .nav-item {
             font-size: 10px;
+            white-space: nowrap;
         }
         .weather-card {
             background-color: rgba(30, 30, 30, 0.7);
@@ -66,6 +83,10 @@
         .story-btn {
             background: linear-gradient(to right, #ff4081, #f8695e);
             box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+        }
+        .scrollable-content {
+            overflow-y: auto;
+            padding-bottom: 70px; /* 为底部导航留出空间 */
         }
     </style>
 </head>
@@ -135,7 +156,7 @@
             </div>
             
             <!-- 滚动内容区域 -->
-            <div class="overflow-y-auto h-full pb-20 px-6 pt-4">
+            <div class="scrollable-content h-full px-6 pt-4">
                 
                 <!-- 时间轴 -->
                 <div class="mb-6">
@@ -230,7 +251,7 @@
         </div>
         
         <!-- 底部导航栏 -->
-        <div class="bottom-nav fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 px-4">
+        <div class="bottom-nav flex justify-around items-center py-2 px-4">
             <a href="#" class="nav-item flex flex-col items-center p-2 text-gray-500">
                 <i class="fas fa-search text-xl mb-1"></i>
                 <span>探索</span>

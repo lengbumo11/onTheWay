@@ -14,6 +14,14 @@
             color: white;
             overflow: hidden;
         }
+        /* 隐藏滚动条但保持滚动功能 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
         .welcome-bg {
             position: absolute;
             top: 0;

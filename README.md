@@ -91,3 +91,37 @@
 - 旅行日记：支持添加照片、视频、文字记录
 - 离线地图：支持在无网络环境下使用地图功能
 - 多语言支持：满足国际用户需求
+
+客户端层
+├── iOS App (React Native)
+├── Android App (React Native)
+└── 小程序 (Taro)
+
+API 网关层
+└── GraphQL API Gateway
+
+核心服务层
+├── 用户服务
+├── 旅行服务
+├── 地图服务
+├── 天气服务
+└── 支付服务
+or
+核心服务模块
+├── user-service（用户服务）
+├── travel-service（旅行服务）
+├── map-service（地图服务）
+├── weather-service（天气服务）
+├── payment-service（支付服务）
+└── notification-service（消息服务）
+
+数据层
+├── PostgreSQL (主数据库)
+├── Redis (缓存)
+└── Elasticsearch (搜索引擎)
+
+基础设施层
+├── 阿里云/腾讯云
+├── 对象存储
+├── CDN
+└── 消息队列
